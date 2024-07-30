@@ -1,6 +1,5 @@
 ---
 source: cargo-dist/tests/gallery/dist/snapshot.rs
-assertion_line: 106
 expression: self.payload
 ---
 ================ axolotlsay-js-installer.sh ================
@@ -3134,6 +3133,8 @@ try {
     {
       "app_name": "axolotlsay",
       "app_version": "0.10.2",
+      "display_name": "axolotlsay",
+      "display": true,
       "artifacts": [
         "source.tar.gz",
         "source.tar.gz.sha256",
@@ -3160,6 +3161,8 @@ try {
     {
       "app_name": "axolotlsay-js",
       "app_version": "0.10.2",
+      "display_name": "axolotlsay-js",
+      "display": true,
       "artifacts": [
         "source.tar.gz",
         "source.tar.gz.sha256",
