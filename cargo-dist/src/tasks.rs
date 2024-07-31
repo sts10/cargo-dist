@@ -839,9 +839,9 @@ impl<'pkg_graph> DistGraphBuilder<'pkg_graph> {
                 root_workspace.cargo_metadata_table.as_ref(),
             )?;
 
-        workspace_metadata.make_relative_to(&root_workspace.workspace_dir);
         let workspace_layer = workspace_metadata.to_toml_layer(true);
         let config = workspace_config(workspaces, workspace_layer.clone());
+        workspace_metadata.make_relative_to(&root_workspace.workspace_dir);
 
         // This is intentionally written awkwardly to make you update this
         //
@@ -961,13 +961,14 @@ impl<'pkg_graph> DistGraphBuilder<'pkg_graph> {
                 &package.manifest_path,
                 package.cargo_metadata_table.as_ref(),
             )?;
-            package_metadata.make_relative_to(&package.package_root);
             package_configs.push(app_config(
                 workspaces,
                 pkg_idx,
                 workspace_layer.clone(),
                 package_metadata.to_toml_layer(false),
             ));
+
+            package_metadata.make_relative_to(&package.package_root);
             package_metadata.merge_workspace_config(&workspace_metadata, &package.manifest_path);
             package_metadata.validate_install_paths()?;
 
@@ -2569,8 +2570,8 @@ impl<'pkg_graph> DistGraphBuilder<'pkg_graph> {
                 &[
                     InstallerStyle::Shell,
                     InstallerStyle::Powershell,
-                    InstallerStyle::Npm,
                     InstallerStyle::Homebrew,
+                    InstallerStyle::Npm,
                     InstallerStyle::Msi,
                 ]
             } else {
@@ -2581,8 +2582,8 @@ impl<'pkg_graph> DistGraphBuilder<'pkg_graph> {
                 match installer {
                     InstallerStyle::Shell => self.add_shell_installer(release)?,
                     InstallerStyle::Powershell => self.add_powershell_installer(release)?,
-                    InstallerStyle::Npm => self.add_npm_installer(release)?,
                     InstallerStyle::Homebrew => self.add_homebrew_installer(release)?,
+                    InstallerStyle::Npm => self.add_npm_installer(release)?,
                     InstallerStyle::Msi => self.add_msi_installer(release)?,
                 }
             }
