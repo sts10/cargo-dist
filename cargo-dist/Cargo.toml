@@ -74,6 +74,7 @@ flate2.workspace = true
 
 [package.metadata.dist]
 features = ["fear_no_msrv", "tls_native_roots"]
+npm-package = "dist"
 
 [package.metadata.dist.bin-aliases]
 "cargo-dist" = ["dist"]
